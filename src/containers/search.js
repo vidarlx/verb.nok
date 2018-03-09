@@ -1,32 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchVerbs } from '../actions';
+import { findVerb } from '../actions';
 
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.state = { word: '' };
+    this.state = { search_word: '' };
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
   onInputChange(event) {
-    this.setState({ word: event.target.value });
+    this.setState({ search_word: event.target.value });
   }
 
   onFormSubmit(event) {
     event.preventDefault();
+    const searchWord = this.state.search_word;
 
-    // search inside this.props.verbs
+    this.props.findVerb(searchWord);
 
     this.setState({
-      word: ''
+      search_word: ''
     });
-  }
-
-  componentDidMount() {
-    this.props.fetchVerbs();
   }
 
   render() {
@@ -35,7 +32,7 @@ class Search extends Component {
         <input
           placeholder="Type a word to search"
           className="form-control"
-          value={this.state.word}
+          value={this.state.search_word}
           onChange={this.onInputChange}
         />
         <span className="input-group-btn">
@@ -46,8 +43,4 @@ class Search extends Component {
   }
 }
 
-function mapStateToProps({ verbs }) {
-  return { verbs };
-}
-
-export default connect(mapStateToProps, { fetchVerbs })(Search);
+export default connect(null, { findVerb })(Search);
