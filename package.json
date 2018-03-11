@@ -1,7 +1,7 @@
 {
   "name": "nok-verb",
   "version": "1.0.0",
-  "description": "Norwegian verbs searchign service",
+  "description": "Norwegian verbs searching service",
   "main": "index.js",
   "repository": "https://github.com/ghanto/verb.nok.git",
   "scripts": {

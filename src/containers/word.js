@@ -6,31 +6,52 @@ class Word extends Component {
   constructor(props) {
     super(props);
 
-    this.fetchWord = this.fetchWord.bind(this);
+    this.renderVerbs = this.renderVerbs.bind(this);
+    this.getActiveVerbsDetails = this.getActiveVerbsDetails.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchVerbs();
   }
 
-  fetchWord() {
-    const { verbs } = this.props;
-    const current = verbs['_current'];
-    return {
-      verb: verbs[current] || false,
-      key: current
+  getActiveVerbsDetails() {
+    const activeVerbs = this.props.active;
+    const allVerbs = this.props.verbs;
+    if (!Object.keys(activeVerbs).length) {
+      return [];
     }
+
+    return activeVerbs.map((verb) => {
+      return { verb, ...allVerbs[verb] };
+    });
+  }
+
+  renderVerbs() {
+    if (!Object.keys(this.props.active).length) {
+      return <tr></tr>
+    }
+
+    const activeVerbsDetails = this.getActiveVerbsDetails();
+    return activeVerbsDetails.map((verb) => {
+      return (
+        <tr key={verb.verb}>
+          <td>{verb.verb}</td>
+          <td>{verb.present}</td>
+          <td>{verb.past}</td>
+          <td>{verb.perfect}</td>
+          <td>{verb.meaning_pl}</td>
+        </tr>
+      )
+    });
   }
 
   render() {
-    const found = this.fetchWord();
-
     return (
       <div>
-        <h2>{found.key}</h2>
         <table className="table table-hover">
           <thead>
             <tr>
+              <th>Verb</th>
               <th>Present</th>
               <th>Past</th>
               <th>Perfect</th>
@@ -38,12 +59,7 @@ class Word extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{found.verb.present}</td>
-              <td>{found.verb.past}</td>
-              <td>{found.verb.perfect}</td>
-              <td>{found.verb.meaning_pl}</td>
-            </tr>
+            {this.renderVerbs()}
           </tbody>
         </table>
       </div>
@@ -51,8 +67,11 @@ class Word extends Component {
   }
 }
 
-function mapStateToProps({ verbs }) {
-  return { verbs };
+function mapStateToProps(state) {
+  return {
+    verbs: state.verbs,
+    active: state.active_verbs
+  };
 }
 
 export default connect(mapStateToProps, { fetchVerbs })(Word);
