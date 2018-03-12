@@ -1,12 +1,22 @@
 import { createSelector } from 'reselect';
+import { RANDOM_VERB } from '../common/consts';
 
 const verbSelector = state => state.verbs;
 const selectedVerbsSelector = state => state.active_verbs;
 
 const getVerbs = (verbs, selectedVerbs) => {
   return selectedVerbs.map((verb) => {
+    // get random key
+    if (verb === RANDOM_VERB) {
+      verb = randomProperty(verbs);
+    }
     return { verb, ...verbs[verb] };
   });
+};
+
+const randomProperty = (obj) => {
+  var keys = Object.keys(obj)
+  return keys[ keys.length * Math.random() << 0];
 };
 
 export default createSelector(

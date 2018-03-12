@@ -6,3 +6,7 @@ td, th {
 .input-group {
   margin: 20px 0;
 }
+
+.btn-success {
+  margin-left: 2px !important;
+}

@@ -4,6 +4,7 @@ const API_URL = 'https://s3.eu-central-1.amazonaws.com/nok.verbs/norsk_verbs.jso
 
 export const FETCH_VERBS = 'FETCH_VERBS';
 export const FIND_VERB = 'FIND_VERB';
+export const FIND_RANDOM = 'FIND_RANDOM';
 
 export function fetchVerbs() {
   const req = axios.get(API_URL);

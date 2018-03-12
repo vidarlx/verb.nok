@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { findVerb } from '../actions';
+import { RANDOM_VERB } from '../common/consts';
 
 class Search extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Search extends Component {
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
+    this.findRandom = this.findRandom.bind(this);
   }
 
   onInputChange(event) {
@@ -26,6 +28,10 @@ class Search extends Component {
     });
   }
 
+  findRandom(){
+    this.props.findVerb(RANDOM_VERB);
+  }
+
   render() {
     return (
       <form className="input-group" onSubmit={this.onFormSubmit}>
@@ -37,6 +43,10 @@ class Search extends Component {
         />
         <span className="input-group-btn">
           <button type="submit" className="btn btn-secondary">Search</button>
+          <button 
+            className="btn btn-success"
+            onClick={this.findRandom}
+          >Random</button>
         </span>
       </form>
     )
