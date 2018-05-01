@@ -1,4 +1,4 @@
-import { FIND_VERB } from '../actions';
+import { FIND_VERB, CLEAR_VERBS } from '../actions';
 
 export default function (state = [], action) {
   switch (action.type) {
@@ -6,6 +6,9 @@ export default function (state = [], action) {
       if (action.verb) {
         return [ ...state, action.verb ];
       }
+      break;
+    case CLEAR_VERBS:
+      return [];
   }
   return state;
 }

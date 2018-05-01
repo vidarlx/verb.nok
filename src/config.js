@@ -9,7 +9,7 @@ function loadConfig() {
   }
 
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    return config.dev;
+    //return config.dev;
   }
 
   return config.prod;
