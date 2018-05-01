@@ -1,6 +1,8 @@
 import axios from 'axios';
+import config from '../config';
 
-const API_URL = 'https://s3.eu-central-1.amazonaws.com/nok.verbs/norsk_verbs.json';
+const API_URL = config.apiUrl;
+console.log(config)
 
 export const FETCH_VERBS = 'FETCH_VERBS';
 export const FIND_VERB = 'FIND_VERB';
