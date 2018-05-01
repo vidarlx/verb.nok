@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { findVerb } from '../actions';
+import { findVerb, clearVerbs } from '../actions';
 import { RANDOM_VERB } from '../common/consts';
 
 class Search extends Component {
@@ -11,6 +11,7 @@ class Search extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.findRandom = this.findRandom.bind(this);
+    this.clearVerbs = this.clearVerbs.bind(this);
   }
 
   onInputChange(event) {
@@ -32,6 +33,10 @@ class Search extends Component {
     this.props.findVerb(RANDOM_VERB);
   }
 
+  clearVerbs() {
+    this.props.clearVerbs();
+  }
+
   render() {
     return (
       <form className="input-group" onSubmit={this.onFormSubmit}>
@@ -47,10 +52,14 @@ class Search extends Component {
             className="btn btn-success"
             onClick={this.findRandom}
           >Random</button>
+          <button 
+            className="btn btn-default"
+            onClick={this.clearVerbs}
+          >Clear</button>
         </span>
       </form>
     )
   }
 }
 
-export default connect(null, { findVerb })(Search);
+export default connect(null, { findVerb, clearVerbs })(Search);
