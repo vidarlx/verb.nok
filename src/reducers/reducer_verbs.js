@@ -21,23 +21,26 @@ export default function (state = INITIAL_STATE, action) {
 
     case FIND_VERB:
       if (action.verb) {
-        let verb = null;
-        if (action.verb === RANDOM_VERB) {
-          verb = findUnique(state.verbs, state.active);
+        let { verb } = action;
+        if (verb === RANDOM_VERB) {
+          // replace the random flag with actual verb
+          verb = findRandom(state.verbs, state.active);
         }
-        // no word - return previous state
-        if (!state.verbs[verb]) {
+ 
+        let found = findActualVerb(state.verbs, verb);
+        
+        if (state.active.find(v => v.verb === found.basic)) {
           return state;
         }
-
-        const word = state.verbs[verb];
-        word.verb = verb;
-
+        // no word - return previous state
+        if (!found) {
+          return state;
+        }
         return {
           verbs: state.verbs,
           active: [
             ...state.active,
-            word
+            { ...found.verb, verb: found.basic }
           ]
         };
       }
@@ -53,12 +56,12 @@ export default function (state = INITIAL_STATE, action) {
   return state;
 }
 
-const randomProperty = (obj) => {
+function randomProperty(obj) {
   var keys = Object.keys(obj)
   return keys[keys.length * Math.random() << 0];
 };
 
-const findUnique = (collection, used) => {
+function findRandom(collection, used) {
   let found = null;
   let exists = true;
   let limit = 0;
@@ -72,4 +75,25 @@ const findUnique = (collection, used) => {
     }
   }
   return found;
+}
+
+function findActualVerb(collection, phrase) {
+  let word = collection[phrase];
+  if (word) {
+    return {
+      basic: phrase,
+      verb: word
+    }; 
+  }
+
+  // try to search by polish basic form
+  for (let norskVerb in collection) {
+      let polishVerb = collection[norskVerb].meaning_pl;
+      if (polishVerb === phrase) {
+        word = norskVerb;
+        break;
+      }
+  }
+
+  return collection[word] ? { basic: word, verb: collection[word] } : false;
 }
