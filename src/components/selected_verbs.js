@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SelectedPostsSelector from '../selectors/selector_selected_verbs';
 
 class SelectedVerbsList extends Component {
   constructor(props) {
@@ -36,7 +35,7 @@ class SelectedVerbsList extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedVerbs: SelectedPostsSelector(state)
+    selectedVerbs: state.verbs.active
   }
 }
 
