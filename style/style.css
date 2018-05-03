@@ -10,3 +10,7 @@ td, th {
 .btn-success {
   margin-left: 2px !important;
 }
+
+.btn-default {
+  margin-left: 2px !important; 
+}

@@ -21,20 +21,12 @@ export default function (state = INITIAL_STATE, action) {
 
     case FIND_VERB:
       if (action.verb) {
-        let verb = action.verb;
+        let verb = null;
         if (action.verb === RANDOM_VERB) {
-          verb = randomProperty(state.verbs);
+          verb = findUnique(state.verbs, state.active);
         }
-
-
         // no word - return previous state
         if (!state.verbs[verb]) {
-          return state;
-        }
-
-        // do not duplicate
-        const exists = state.active.find(el => el.verb === verb);
-        if (exists) {
           return state;
         }
 
@@ -49,6 +41,7 @@ export default function (state = INITIAL_STATE, action) {
           ]
         };
       }
+      break;
 
     case CLEAR_VERBS:
       return {
@@ -64,3 +57,19 @@ const randomProperty = (obj) => {
   var keys = Object.keys(obj)
   return keys[keys.length * Math.random() << 0];
 };
+
+const findUnique = (collection, used) => {
+  let found = null;
+  let exists = true;
+  let limit = 0;
+  while (exists) {
+    found = randomProperty(collection);
+    // do not duplicate
+    exists = used.find(el => el.verb === found);
+    limit++;
+    if (limit > 20) {
+      exists = false;
+    }
+  }
+  return found;
+}
