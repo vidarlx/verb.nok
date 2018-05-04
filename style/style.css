@@ -14,3 +14,38 @@ td, th {
 .btn-default {
   margin-left: 2px !important; 
 }
+
+.suggestion-pl {
+  font-weight: bold;
+}
+
+.react-autosuggest__input {
+  width: 99%;
+  margin: 0 3px 0 0 !important;
+  height: 38px;
+  padding-left: 5px;
+}
+
+.react-autosuggest__suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 1px 3px;
+}
+
+.react-autosuggest__container--open {
+  border: 1px solid black;
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  
+}
+
+.react-autosuggest__suggestion:hover {
+  background: #000;
+  color: #fff;
+}
