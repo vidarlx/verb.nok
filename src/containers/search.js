@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Autosuggest from 'react-autosuggest';
+
 import { findVerb, clearVerbs } from '../actions';
 import { RANDOM_VERB } from '../common/consts';
+
+const getSuggestionValue = suggestion => suggestion.basic;
+
+const renderSuggestion = suggestion => (
+  <div className="suggestions-list">
+    {suggestion.basic} (<span className="suggestion-pl">{suggestion.meaning_pl}</span>)
+  </div>
+);
 
 class Search extends Component {
   constructor(props) {
@@ -9,27 +19,57 @@ class Search extends Component {
     this.state = { search_word: '' };
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
     this.findRandom = this.findRandom.bind(this);
     this.clearVerbs = this.clearVerbs.bind(this);
+    this.getSuggestions = this.getSuggestions.bind(this);
+    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
+
+    this.state = {
+      value: '',
+      suggestions: []
+    };
   }
 
-  onInputChange(event) {
-    this.setState({ search_word: event.target.value });
-  }
+  onChange = (event, { newValue }) => {
+    this.setState({
+      value: newValue
+    });
+  };
 
-  onFormSubmit(event) {
-    event.preventDefault();
-    const searchWord = this.state.search_word;
-
-    this.props.findVerb(searchWord);
+  onSuggestionSelected = (event, { suggestionValue }) => {
+    this.props.findVerb(suggestionValue);
 
     this.setState({
-      search_word: ''
+      value: ''
     });
   }
 
-  findRandom(){
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: this.getSuggestions(value)
+    });
+  };
+
+  // Teach Autosuggest how to calculate suggestions for any given input value.
+  getSuggestions = value => {
+    const { verbs } = this.props;
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+
+    return inputLength < 2 ? [] : verbs.filter(verb =>
+      verb.basic.toLowerCase().slice(0, inputLength) === inputValue || 
+      verb.meaning_pl.toLowerCase().slice(0, inputLength) === inputValue
+    );
+  };
+
+  // Autosuggest will call this function every time you need to clear suggestions.
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
+
+  findRandom() {
     this.props.findVerb(RANDOM_VERB);
   }
 
@@ -37,22 +77,37 @@ class Search extends Component {
     this.props.clearVerbs();
   }
 
+  onFormSubmit(event) {
+    event.preventDefault();
+  }
+
   render() {
+    const { value, suggestions } = this.state;
+    // Autosuggest will pass through all these props to the input.
+    const inputProps = {
+      placeholder: 'Søk på norske eller polske verb',
+      value,
+      onChange: this.onChange
+    };
+
     return (
       <form className="input-group" onSubmit={this.onFormSubmit}>
-        <input
-          placeholder="Type a word to search"
-          className="form-control"
-          value={this.state.search_word}
-          onChange={this.onInputChange}
+        <Autosuggest className="form-control"
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputProps}
+          onSuggestionSelected={this.onSuggestionSelected}
         />
+
         <span className="input-group-btn">
-          <button type="submit" className="btn btn-secondary">Search</button>
-          <button 
+          <button
             className="btn btn-success"
             onClick={this.findRandom}
           >Random</button>
-          <button 
+          <button
             className="btn btn-default"
             onClick={this.clearVerbs}
           >Clear</button>
@@ -60,6 +115,20 @@ class Search extends Component {
       </form>
     )
   }
+  
 }
 
-export default connect(null, { findVerb, clearVerbs })(Search);
+function mapStateToProps(state) {
+  const v = state.verbs.verbs;
+  // translate to array
+  const verbs = Object.keys(v).map((key) => {
+    v[key].basic = key;
+    return v[key]
+  });
+  
+  return {
+    verbs
+  };
+}
+
+export default connect(mapStateToProps, { findVerb, clearVerbs })(Search);
