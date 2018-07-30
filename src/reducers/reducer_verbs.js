@@ -28,7 +28,7 @@ export default function (state = INITIAL_STATE, action) {
         }
  
         let found = findActualVerb(state.verbs, verb);
-        
+
         if (state.active.find(v => v.verb === found.basic)) {
           return state;
         }
