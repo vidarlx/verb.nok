@@ -5,7 +5,7 @@ import Autosuggest from 'react-autosuggest';
 import { findVerb, clearVerbs } from '../actions';
 import { RANDOM_VERB } from '../common/consts';
 
-const getSuggestionValue = suggestion => suggestion.basic;
+const getSuggestionValue = suggestion => suggestion.norsk_verb;
 
 const renderSuggestion = suggestion => (
   <div className="suggestions-list">

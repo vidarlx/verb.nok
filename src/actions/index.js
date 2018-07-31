@@ -9,7 +9,7 @@ export const FIND_RANDOM = 'FIND_RANDOM';
 export const CLEAR_VERBS = 'CLEAR_VERBS';
 
 export function fetchVerbs() {
-  const req = axios.get(API_URL);
+  const req = axios.get(`${API_URL}/get-verbs`);
 
   return {
     type: FETCH_VERBS,
@@ -18,9 +18,10 @@ export function fetchVerbs() {
 }
 
 export function findVerb(verb) {
+  const req = axios.post(`${API_URL}/get-verb`, { verb });
   return {
     type: FIND_VERB,
-    verb,
+    payload: req,
   }
 }
 

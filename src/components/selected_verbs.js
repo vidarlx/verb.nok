@@ -10,12 +10,12 @@ class SelectedVerbsList extends Component {
 
   renderRows() {
     return this.props.selectedVerbs.map(verb => (
-      <tr key={verb.verb}>
-        <td>{verb.verb}</td>
-        <td>{verb.present}</td>
-        <td>{verb.past}</td>
-        <td>{verb.perfect}</td>
-        <td>{verb.meaning_pl}</td>
+      <tr key={verb.norsk_verb}>
+        <td>{verb.norsk_verb}</td>
+        <td>{verb.bokmal.presens}</td>
+        <td>{verb.bokmal.preteritum}</td>
+        <td>{verb.bokmal.perfektum}</td>
+        <td>{verb.polsk_verb}</td>
       </tr>
     ));
   }

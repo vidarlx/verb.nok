@@ -20,27 +20,27 @@ export default function (state = INITIAL_STATE, action) {
       }
 
     case FIND_VERB:
-      if (action.verb) {
-        let { verb } = action;
+      let verb = action.payload.data;
+      if (verb) {
         if (verb === RANDOM_VERB) {
           // replace the random flag with actual verb
           verb = findRandom(state.verbs, state.active);
         }
  
-        let found = findActualVerb(state.verbs, verb);
-
-        if (state.active.find(v => v.verb === found.basic)) {
+        // do not add if already on the list
+        if (state.active.find(v => v.norsk_verb === verb.norsk_verb)) {
           return state;
         }
+        
         // no word - return previous state
-        if (!found) {
+        if (!verb) {
           return state;
         }
         return {
           verbs: state.verbs,
           active: [
             ...state.active,
-            { ...found.verb, verb: found.basic }
+            { ...verb }
           ]
         };
       }
@@ -78,12 +78,12 @@ function findRandom(collection, used) {
 }
 
 function findActualVerb(collection, phrase) {
-  let word = collection[phrase];
+  console.log(collection);
+  console.log(phrase);
+  let word = collection.find(item => item.norsk_verb === phrase);
+
   if (word) {
-    return {
-      basic: phrase,
-      verb: word
-    }; 
+    return word; 
   }
 
   // try to search by polish basic form
