@@ -1,7 +1,7 @@
 function loadConfig() {
   const config = {
     prod: {
-      apiUrl: 'https://bnhsknkm2k.execute-api.eu-west-2.amazonaws.com/test/get-verbs'
+      apiUrl: 'https://bnhsknkm2k.execute-api.eu-west-2.amazonaws.com/test'
     },
     dev: {
       apiUrl: 'http://localhost:3000/'
