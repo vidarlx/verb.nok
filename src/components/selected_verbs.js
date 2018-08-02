@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 class SelectedVerbsList extends Component {
@@ -15,7 +16,7 @@ class SelectedVerbsList extends Component {
         <td>{verb.bokmal.presens}</td>
         <td>{verb.bokmal.preteritum}</td>
         <td>{verb.bokmal.perfektum}</td>
-        <td>{verb.polsk_verb}</td>
+        <td><Link to={`/czasownik/${verb.polsk_verb}`}>{verb.polsk_verb}</Link></td>
       </tr>
     ));
   }
