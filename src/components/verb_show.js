@@ -1,40 +1,40 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
+import VerbTable from './verb_table';
+import { fetchVerbs } from '../actions';
 
 class VerbShow extends Component {
   constructor(props) {
     super(props);
   }
 
-  render() {
-    return (
-      <div>
-        <span className="input-group-btn">
-          <Link className="btn btn-success" to="/">back</Link>
-        </span>
+  componentWillMount() {
+    this.props.fetchVerbs();
+  }
 
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Czas przeszły</th>
-              <th scope="col">Czas teraźniejszy</th>
-              <th scope="col">Czas przyszły</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  render() {
+    if (!this.props.verbs || this.props.verbs.length === 0) {
+      return (
+        <div> Vente....</div>
+      )
+    }
+    const { id } = this.props.match.params;
+    // search always by norsk_verb
+    const verb = this.props.verbs.find((v) => {
+      return v.norsk_verb === id || v.polsk_verb === id
+    }).norsk_verb;
+
+    return (
+      <VerbTable id={verb} />
     )
   }
 }
 
-export default VerbShow;
+const mapStateToProps = state => {
+  return {
+    verbs: state.verbs.all
+  }
+}
+
+export default connect(mapStateToProps, { fetchVerbs })(VerbShow);

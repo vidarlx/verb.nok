@@ -33,9 +33,10 @@ class Word extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
-    verbs: state.verbs,
-    active: state.active_verbs
+    verbs: state.all,
+    active: state.active
   };
 }
 

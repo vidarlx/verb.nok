@@ -10,6 +10,7 @@ class SelectedVerbsList extends Component {
   }
 
   renderRows() {
+    console.log(this.props);
     return this.props.selectedVerbs.map(verb => (
       <tr key={verb.norsk_verb}>
         <td>{verb.norsk_verb}</td>
