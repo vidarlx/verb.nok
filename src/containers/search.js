@@ -119,7 +119,7 @@ class Search extends Component {
 }
 
 function mapStateToProps(state) {
-  const v = state.verbs.verbs;
+  const v = state.verbs.all;
   // translate to array
   const verbs = Object.keys(v).map((key) => {
     return v[key]

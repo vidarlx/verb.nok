@@ -1,54 +1,77 @@
 import {
   FETCH_VERBS,
   FIND_VERB,
+  FIND_SINGLE_VERB,
   CLEAR_VERBS
 } from '../actions';
 
 import { RANDOM_VERB } from '../common/consts';
 
 const INITIAL_STATE = {
-  verbs: [],
+  all: [],
   active: []
 };
 
 export default function (state = INITIAL_STATE, action) {
+  let verb = null;
+
   switch (action.type) {
     case FETCH_VERBS:
       return {
-        verbs: action.payload.data,
+        all: action.payload.data,
         active: state.active
       }
 
     case FIND_VERB:
-      let verb = action.payload.data;
+      verb = action.payload.data;
       if (verb) {
         if (verb === RANDOM_VERB) {
           // replace the random flag with actual verb
           verb = findRandom(state.verbs, state.active);
         }
- 
+
+
         // do not add if already on the list
-        if (state.active.find(v => v.norsk_verb === verb.norsk_verb)) {
+        const foundNorsk = state.active.find(v => v.norsk_verb === verb.norsk_verb);
+        const foundPolsk = state.active.find(v => v.polsk_verb === verb.polsk_verb);
+
+        if (foundNorsk || foundPolsk) {
           return state;
         }
-        
+
         // no word - return previous state
         if (!verb) {
           return state;
         }
         return {
-          verbs: state.verbs,
+          all: state.all,
           active: [
             ...state.active,
             { ...verb }
-          ]
+          ],
+          chosen: state.chosen
         };
       }
       break;
 
+    case FIND_SINGLE_VERB:
+      verb = action.payload.data;
+      if (verb) {
+        return {
+          all: state.all,
+          active: [
+            ...state.active,
+            { ...verb }
+          ],
+          chosen: verb
+        };
+      }
+      
+      break;
+
     case CLEAR_VERBS:
       return {
-        verbs: state.verbs,
+        all: state.all,
         active: [],
       }
   }
@@ -75,25 +98,4 @@ function findRandom(collection, used) {
     }
   }
   return found;
-}
-
-function findActualVerb(collection, phrase) {
-  console.log(collection);
-  console.log(phrase);
-  let word = collection.find(item => item.norsk_verb === phrase);
-
-  if (word) {
-    return word; 
-  }
-
-  // try to search by polish basic form
-  for (let norskVerb in collection) {
-      let polishVerb = collection[norskVerb].meaning_pl;
-      if (polishVerb === phrase) {
-        word = norskVerb;
-        break;
-      }
-  }
-
-  return collection[word] ? { basic: word, verb: collection[word] } : false;
 }
