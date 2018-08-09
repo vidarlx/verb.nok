@@ -5,11 +5,11 @@ import Autosuggest from 'react-autosuggest';
 import { findVerb, clearVerbs } from '../actions';
 import { RANDOM_VERB } from '../common/consts';
 
-const getSuggestionValue = suggestion => suggestion.basic;
+const getSuggestionValue = suggestion => suggestion.norsk_verb;
 
 const renderSuggestion = suggestion => (
   <div className="suggestions-list">
-    {suggestion.basic} (<span className="suggestion-pl">{suggestion.meaning_pl}</span>)
+    {suggestion.norsk_verb} (<span className="suggestion-pl">{suggestion.polsk_verb}</span>)
   </div>
 );
 
@@ -57,8 +57,8 @@ class Search extends Component {
     const inputLength = inputValue.length;
 
     return inputLength < 2 ? [] : verbs.filter(verb =>
-      verb.basic.toLowerCase().slice(0, inputLength) === inputValue || 
-      verb.meaning_pl.toLowerCase().slice(0, inputLength) === inputValue
+      verb.norsk_verb.toLowerCase().slice(0, inputLength) === inputValue || 
+      verb.polsk_verb.toLowerCase().slice(0, inputLength) === inputValue
     );
   };
 
@@ -119,10 +119,9 @@ class Search extends Component {
 }
 
 function mapStateToProps(state) {
-  const v = state.verbs.verbs;
+  const v = state.verbs.all;
   // translate to array
   const verbs = Object.keys(v).map((key) => {
-    v[key].basic = key;
     return v[key]
   });
   

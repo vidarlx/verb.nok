@@ -18,11 +18,11 @@ class Word extends Component {
         <table className="table table-hover">
           <thead>
             <tr>
-              <th>Verb</th>
-              <th>Present</th>
-              <th>Past</th>
-              <th>Perfect</th>
-              <th>Meaning PL</th>
+              <th>Norsk verb</th>
+              <th>Presens</th>
+              <th>Preteritum</th>
+              <th>Perfektum</th>
+              <th>Polsk grunnform</th>
             </tr>
           </thead>
           <SelectedVerbs />
@@ -33,9 +33,10 @@ class Word extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
-    verbs: state.verbs,
-    active: state.active_verbs
+    verbs: state.all,
+    active: state.active
   };
 }
 

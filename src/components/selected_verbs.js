@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 
 class SelectedVerbsList extends Component {
@@ -9,13 +10,14 @@ class SelectedVerbsList extends Component {
   }
 
   renderRows() {
+    console.log(this.props);
     return this.props.selectedVerbs.map(verb => (
-      <tr key={verb.verb}>
-        <td>{verb.verb}</td>
-        <td>{verb.present}</td>
-        <td>{verb.past}</td>
-        <td>{verb.perfect}</td>
-        <td>{verb.meaning_pl}</td>
+      <tr key={verb.norsk_verb}>
+        <td>{verb.norsk_verb}</td>
+        <td>{verb.bokmal.presens}</td>
+        <td>{verb.bokmal.preteritum}</td>
+        <td>{verb.bokmal.perfektum}</td>
+        <td><Link to={`/czasownik/${verb.polsk_verb}`}>{verb.polsk_verb}</Link></td>
       </tr>
     ));
   }
