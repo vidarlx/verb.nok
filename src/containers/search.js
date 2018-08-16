@@ -106,11 +106,7 @@ class Search extends Component {
           <button
             className="btn btn-success"
             onClick={this.findRandom}
-          >Random</button>
-          <button
-            className="btn btn-default"
-            onClick={this.clearVerbs}
-          >Clear</button>
+          >Losuj</button>
         </span>
       </form>
     )

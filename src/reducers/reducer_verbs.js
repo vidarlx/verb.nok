@@ -1,8 +1,7 @@
 import {
   FETCH_VERBS,
   FIND_VERB,
-  FIND_SINGLE_VERB,
-  CLEAR_VERBS
+  FIND_SINGLE_VERB
 } from '../actions';
 
 import { RANDOM_VERB } from '../common/consts';
@@ -68,12 +67,6 @@ export default function (state = INITIAL_STATE, action) {
       }
       
       break;
-
-    case CLEAR_VERBS:
-      return {
-        all: state.all,
-        active: [],
-      }
   }
 
   return state;

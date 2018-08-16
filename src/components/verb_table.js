@@ -87,7 +87,6 @@ function renderPolishTable(verb) {
 }
 
 function renderNorwegianTable(verb) {
-  console.log(verb);
   return (
     <table className="table">
       <thead>
