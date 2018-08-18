@@ -101,13 +101,6 @@ class Search extends Component {
           inputProps={inputProps}
           onSuggestionSelected={this.onSuggestionSelected}
         />
-
-        <span className="input-group-btn">
-          <button
-            className="btn btn-success"
-            onClick={this.findRandom}
-          >Losuj</button>
-        </span>
       </form>
     )
   }
