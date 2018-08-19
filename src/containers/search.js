@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
+import { withRouter } from 'react-router'
 
 import { findVerb, clearVerbs } from '../actions';
 import { RANDOM_VERB } from '../common/consts';
@@ -26,7 +27,8 @@ class Search extends Component {
 
     this.state = {
       value: '',
-      suggestions: []
+      suggestions: [],
+      navigateToHomepage: false
     };
   }
 
@@ -37,11 +39,14 @@ class Search extends Component {
   };
 
   onSuggestionSelected = (event, { suggestionValue }) => {
-    this.props.findVerb(suggestionValue);
+    const { findVerb, history } = this.props;
+    findVerb(suggestionValue);
 
     this.setState({
       value: ''
     });
+
+    history.push('/');
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
@@ -57,7 +62,7 @@ class Search extends Component {
     const inputLength = inputValue.length;
 
     return inputLength < 2 ? [] : verbs.filter(verb =>
-      verb.norsk_verb.toLowerCase().slice(0, inputLength) === inputValue || 
+      verb.norsk_verb.toLowerCase().slice(0, inputLength) === inputValue ||
       verb.polsk_verb.toLowerCase().slice(0, inputLength) === inputValue
     );
   };
@@ -82,7 +87,7 @@ class Search extends Component {
   }
 
   render() {
-    const { value, suggestions } = this.state;
+    const { value, suggestions, navigateToHomepage } = this.state;
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
       placeholder: 'Søk på norske eller polske verb',
@@ -104,7 +109,7 @@ class Search extends Component {
       </form>
     )
   }
-  
+
 }
 
 function mapStateToProps(state) {
@@ -113,10 +118,10 @@ function mapStateToProps(state) {
   const verbs = Object.keys(v).map((key) => {
     return v[key]
   });
-  
+
   return {
     verbs
   };
 }
 
-export default connect(mapStateToProps, { findVerb, clearVerbs })(Search);
+export default connect(mapStateToProps, { findVerb, clearVerbs })(withRouter(Search));

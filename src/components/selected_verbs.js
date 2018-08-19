@@ -10,12 +10,12 @@ class SelectedVerbsList extends Component {
   }
 
   renderRows() {
-    return this.props.selectedVerbs.map(verb => (
-      <li className="list-group-item" key={verb.norsk_verb}>
+    return this.props.selectedVerbs.map((verb, index) => (
+      <li className="list-group-item" key={index}>
         <strong>{verb.norsk_verb}</strong> -&nbsp;
-        {verb.bokmal.presens} -&nbsp;
-        {verb.bokmal.preteritum} -&nbsp;
-        {verb.bokmal.perfektum} -&nbsp;
+        <span>{verb.bokmal.presens} -&nbsp;</span>
+        <span>{verb.bokmal.preteritum} -&nbsp;</span>
+        <span>{verb.bokmal.perfektum} -&nbsp;</span>
         <Link to={`/czasownik/${verb.polsk_verb}`}>{verb.polsk_verb}</Link>
       </li>
     ));
@@ -23,7 +23,7 @@ class SelectedVerbsList extends Component {
 
   render() {
     if (!this.props.selectedVerbs.length) {
-      return <ul></ul>
+      return <div></div>
     }
 
     return (

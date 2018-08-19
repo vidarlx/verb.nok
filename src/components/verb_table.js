@@ -7,15 +7,18 @@ import 'rc-collapse/assets/index.css';
 import { findVerbDetails } from '../actions';
 
 class VerbTable extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const verb = this.props.id;
-    this.props.findVerbDetails(verb);
+
+    if (!this.props.verb) {
+      this.props.findVerbDetails(verb);
+    }
   }
 
   render() {
     if (!this.props.verb) {
       return (
-        <p>Vente...</p>
+        <img src="../../assets/spinner.gif" className="spinner" />
       )
     }
     const { verb } = this.props;

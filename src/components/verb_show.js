@@ -16,7 +16,7 @@ class VerbShow extends Component {
   render() {
     if (!this.props.verbs || this.props.verbs.length === 0) {
       return (
-        <div> Vente....</div>
+        <img src="../../assets/spinner.gif" className="spinner" />
       )
     }
     const { id } = this.props.match.params;

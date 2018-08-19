@@ -24,13 +24,8 @@ export default function (state = INITIAL_STATE, action) {
     case FIND_VERB:
       verb = action.payload.data;
       if (verb) {
-        if (verb === RANDOM_VERB) {
-          // replace the random flag with actual verb
-          verb = findRandom(state.verbs, state.active);
-        }
-
-
         // do not add if already on the list
+
         const foundNorsk = state.active.find(v => v.norsk_verb === verb.norsk_verb);
         const foundPolsk = state.active.find(v => v.polsk_verb === verb.polsk_verb);
 
@@ -54,18 +49,29 @@ export default function (state = INITIAL_STATE, action) {
       break;
 
     case FIND_SINGLE_VERB:
+      let active = null;
+      
       verb = action.payload.data;
       if (verb) {
-        return {
-          all: state.all,
-          active: [
+        const foundNorsk = state.active.find(v => v.norsk_verb === verb.norsk_verb);
+        const foundPolsk = state.active.find(v => v.polsk_verb === verb.polsk_verb);
+
+        if (foundNorsk || foundPolsk) {
+          active = state.active;
+        } else {
+          active = [
             ...state.active,
             { ...verb }
-          ],
+          ]
+        }
+
+        return {
+          all: state.all,
+          active,
           chosen: verb
         };
       }
-      
+
       break;
   }
 
