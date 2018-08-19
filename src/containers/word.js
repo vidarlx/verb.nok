@@ -15,25 +15,13 @@ class Word extends Component {
   render() {
     return (
       <div>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th>Norsk verb</th>
-              <th>Presens</th>
-              <th>Preteritum</th>
-              <th>Perfektum</th>
-              <th>Polsk grunnform</th>
-            </tr>
-          </thead>
-          <SelectedVerbs />
-        </table>
+        <SelectedVerbs />
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     verbs: state.all,
     active: state.active

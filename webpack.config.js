@@ -33,7 +33,8 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './'
+    contentBase: './',
+    disableHostCheck: true
   },
   plugins: [
     //new UglifyJsPlugin(),

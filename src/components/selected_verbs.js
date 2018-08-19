@@ -10,27 +10,26 @@ class SelectedVerbsList extends Component {
   }
 
   renderRows() {
-    console.log(this.props);
     return this.props.selectedVerbs.map(verb => (
-      <tr key={verb.norsk_verb}>
-        <td>{verb.norsk_verb}</td>
-        <td>{verb.bokmal.presens}</td>
-        <td>{verb.bokmal.preteritum}</td>
-        <td>{verb.bokmal.perfektum}</td>
-        <td><Link to={`/czasownik/${verb.polsk_verb}`}>{verb.polsk_verb}</Link></td>
-      </tr>
+      <li className="list-group-item" key={verb.norsk_verb}>
+        <strong>{verb.norsk_verb}</strong> -&nbsp;
+        {verb.bokmal.presens} -&nbsp;
+        {verb.bokmal.preteritum} -&nbsp;
+        {verb.bokmal.perfektum} -&nbsp;
+        <Link to={`/czasownik/${verb.polsk_verb}`}>{verb.polsk_verb}</Link>
+      </li>
     ));
   }
 
   render() {
     if (!this.props.selectedVerbs.length) {
-      return <tbody></tbody>
+      return <ul></ul>
     }
 
     return (
-      <tbody>
+      <ul className="list-group">
         {this.renderRows()}
-      </tbody>
+      </ul>
     )
   }
 }
