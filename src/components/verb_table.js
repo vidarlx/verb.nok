@@ -119,6 +119,45 @@ function renderPolishTable(verb) {
             <div className="col">{verb.polsk.terazniejszy.oni}</div>
           </div>
         </Panel>
+        <Panel header="Czas przyszły" headerClass="tenseHeader">
+          <div className="row">
+            <div className="col-4">ja</div>
+            <div className="col">{verb.polsk.przyszly.ja}</div>
+          </div>
+          <div className="row">
+            <div className="col-4">ty</div>
+            <div className="col">{verb.polsk.przyszly.ty}</div>
+          </div>
+          <div className="row">
+            <div className="col-4">on</div>
+            <div className="col">{verb.polsk.przyszly.on}</div>
+          </div>
+          <div className="row">
+            <div className="col-4">ona</div>
+            <div className="col">{verb.polsk.przyszly.ona}</div>
+          </div>
+          <div className="row">
+            <div className="col-4">ono</div>
+            <div className="col">{verb.polsk.przyszly.ono}</div>
+          </div>
+          <hr />
+          <div className="row">
+            <div className="col-4">my</div>
+            <div className="col">{verb.polsk.przyszly.my}</div>
+          </div>
+          <div className="row">
+            <div className="col-4">wy</div>
+            <div className="col">{verb.polsk.przyszly.wy}</div>
+          </div>
+          <div className="row">
+            <div className="col-4">oni</div>
+            <div className="col">{verb.polsk.przyszly.oni}</div>
+          </div>
+          <div className="row">
+            <div className="col-4">one</div>
+            <div className="col">{verb.polsk.przyszly.oni}</div>
+          </div>
+        </Panel>
         <Panel header="Bokmål" headerClass="tenseHeader">
           <div className="row">
             <div className="col-4">Grunnform</div>

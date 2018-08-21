@@ -98,12 +98,13 @@ img.logo {
 }
 
 .footer {
-  width:90%;
+  width:30px;
   position: absolute;
   height: 50px;
   padding-top:20px;
   bottom: 10px;
   text-align: center;
+  left: 48%;
 }
 
 .footer img {
