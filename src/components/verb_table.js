@@ -5,11 +5,19 @@ import Collapse, { Panel } from "rc-collapse";
 import "rc-collapse/assets/index.css";
 
 import { findVerbDetails } from "../actions";
+import Spinner from "./spinner";
 
 class VerbTable extends Component {
-  componentWillMount() {
-    const verb = this.props.id;
+  constructor() {
+    super();
 
+    this.state = {
+      verb: {}
+    };
+  }
+
+  componentDidMount() {
+    const verb = this.props.id;
     if (!this.props.verb) {
       this.props.findVerbDetails(verb);
     }
@@ -17,10 +25,10 @@ class VerbTable extends Component {
 
   render() {
     if (!this.props.verb) {
-      return <img src="../../assets/spinner.gif" className="spinner" />;
+      return <Spinner />;
     }
+    
     const { verb } = this.props;
-
     return (
       <div>
         <h3 className="languages">
@@ -196,7 +204,7 @@ function renderPolishFuture(verb) {
       wy: `będziecie ${verb.polsk_verb}`,
       oni: `bedą ${verb.polsk_verb}`,
       one: `będą ${verb.polsk_verb}`
-    }
+    };
   }
   return (
     <Panel header="Czas przyszły" headerClass="tenseHeader">

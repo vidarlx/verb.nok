@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import ReduxPromise from 'redux-promise';
 
 import App from './components/app';
+import Logo from './components/logo';
 import Search from './containers/search';
 import Footer from './components/footer';
 import VerbShow from './components/verb_show';
@@ -17,7 +18,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <div id="main" className="container clear-top">
-        <Link to="/"><img src="../assets/logo2.png" className="logo" /></Link>
+        <Link to="/"><Logo /></Link>
         <Search />
         <Switch>
           <Route path="/czasownik/:id" component={VerbShow} />

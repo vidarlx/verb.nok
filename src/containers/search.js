@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
 import { withRouter } from 'react-router'
 
-import { findVerb, clearVerbs } from '../actions';
+import { findVerbDetails, clearVerbs } from '../actions';
 import { RANDOM_VERB } from '../common/consts';
 
 const getSuggestionValue = suggestion => suggestion.norsk_verb;
@@ -39,8 +39,8 @@ class Search extends Component {
   };
 
   onSuggestionSelected = (event, { suggestionValue }) => {
-    const { findVerb, history } = this.props;
-    findVerb(suggestionValue);
+    const { findVerbDetails, history } = this.props;
+    findVerbDetails(suggestionValue);
 
     this.setState({
       value: ''
@@ -124,4 +124,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { findVerb, clearVerbs })(withRouter(Search));
+export default connect(mapStateToProps, { findVerbDetails, clearVerbs })(withRouter(Search));

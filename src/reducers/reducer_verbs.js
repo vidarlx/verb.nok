@@ -1,6 +1,5 @@
 import {
   FETCH_VERBS,
-  FIND_VERB,
   FIND_SINGLE_VERB
 } from '../actions';
 
@@ -21,41 +20,12 @@ export default function (state = INITIAL_STATE, action) {
         active: state.active
       }
 
-    case FIND_VERB:
-      verb = action.payload.data;
-      if (verb) {
-        // do not add if already on the list
-
-        const foundNorsk = state.active.find(v => v.norsk_verb === verb.norsk_verb);
-        const foundPolsk = state.active.find(v => v.polsk_verb === verb.polsk_verb);
-
-        if (foundNorsk || foundPolsk) {
-          return state;
-        }
-
-        // no word - return previous state
-        if (!verb) {
-          return state;
-        }
-        return {
-          all: state.all,
-          active: [
-            ...state.active,
-            { ...verb }
-          ],
-          chosen: state.chosen
-        };
-      }
-      break;
-
     case FIND_SINGLE_VERB:
       let active = null;
-      
       verb = action.payload.data;
       if (verb) {
         const foundNorsk = state.active.find(v => v.norsk_verb === verb.norsk_verb);
         const foundPolsk = state.active.find(v => v.polsk_verb === verb.polsk_verb);
-
         if (foundNorsk || foundPolsk) {
           active = state.active;
         } else {
@@ -64,7 +34,6 @@ export default function (state = INITIAL_STATE, action) {
             { ...verb }
           ]
         }
-
         return {
           all: state.all,
           active,

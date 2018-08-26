@@ -4,7 +4,6 @@ import config from '../config';
 const API_URL = config.apiUrl;
 
 export const FETCH_VERBS = 'FETCH_VERBS';
-export const FIND_VERB = 'FIND_VERB';
 export const FIND_SINGLE_VERB = 'FIND_SINGLE_VERB';
 export const FIND_RANDOM = 'FIND_RANDOM';
 export const RETURN_CACHED = 'RETURN_CACHED';
@@ -14,14 +13,6 @@ export function fetchVerbs() {
 
   return {
     type: FETCH_VERBS,
-    payload: req,
-  }
-}
-
-export function findVerb(verb) {
-  const req = axios.post(`${API_URL}/get-verb`, { verb });
-  return {
-    type: FIND_VERB,
     payload: req,
   }
 }
