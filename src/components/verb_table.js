@@ -27,7 +27,7 @@ class VerbTable extends Component {
     if (!this.props.verb) {
       return <Spinner />;
     }
-    
+
     const { verb } = this.props;
     return (
       <div>
@@ -143,6 +143,9 @@ function renderPolishPast(verb) {
         <div className="col-4">one</div>
         <div className="col">{verb.polsk.przeszły.one}</div>
       </div>
+      <hr />
+      <h4>Przykłady</h4>
+      {showExamples(verb.polsk.przeszły)}
     </Panel>
   );
 }
@@ -187,14 +190,17 @@ function renderPolishPresent(verb) {
         <div className="col-4">one</div>
         <div className="col">{verb.polsk.terazniejszy.oni}</div>
       </div>
+      <hr />
+      <h4>Przykłady</h4>
+      {showExamples(verb.polsk.terazniejszy)}
     </Panel>
   );
 }
 
 function renderPolishFuture(verb) {
   // standard be + basic form of a verb
-  if (!verb.polsk.przyszly) {
-    verb.polsk.przyszly = {
+  if (!verb.polsk.przyszły) {
+    verb.polsk.przyszły = {
       ja: `będę ${verb.polsk_verb}`,
       ty: `będziesz ${verb.polsk_verb}`,
       on: `będzie ${verb.polsk_verb}`,
@@ -206,47 +212,62 @@ function renderPolishFuture(verb) {
       one: `będą ${verb.polsk_verb}`
     };
   }
+
   return (
     <Panel header="Czas przyszły" headerClass="tenseHeader">
       <div className="row">
         <div className="col-4">ja</div>
-        <div className="col">{verb.polsk.przyszly.ja}</div>
+        <div className="col">{verb.polsk.przyszły.ja}</div>
       </div>
       <div className="row">
         <div className="col-4">ty</div>
-        <div className="col">{verb.polsk.przyszly.ty}</div>
+        <div className="col">{verb.polsk.przyszły.ty}</div>
       </div>
       <div className="row">
         <div className="col-4">on</div>
-        <div className="col">{verb.polsk.przyszly.on}</div>
+        <div className="col">{verb.polsk.przyszły.on}</div>
       </div>
       <div className="row">
         <div className="col-4">ona</div>
-        <div className="col">{verb.polsk.przyszly.ona}</div>
+        <div className="col">{verb.polsk.przyszły.ona}</div>
       </div>
       <div className="row">
         <div className="col-4">ono</div>
-        <div className="col">{verb.polsk.przyszly.ono}</div>
+        <div className="col">{verb.polsk.przyszły.ono}</div>
       </div>
       <hr />
       <div className="row">
         <div className="col-4">my</div>
-        <div className="col">{verb.polsk.przyszly.my}</div>
+        <div className="col">{verb.polsk.przyszły.my}</div>
       </div>
       <div className="row">
         <div className="col-4">wy</div>
-        <div className="col">{verb.polsk.przyszly.wy}</div>
+        <div className="col">{verb.polsk.przyszły.wy}</div>
       </div>
       <div className="row">
         <div className="col-4">oni</div>
-        <div className="col">{verb.polsk.przyszly.oni}</div>
+        <div className="col">{verb.polsk.przyszły.oni}</div>
       </div>
       <div className="row">
         <div className="col-4">one</div>
-        <div className="col">{verb.polsk.przyszly.oni}</div>
+        <div className="col">{verb.polsk.przyszły.oni}</div>
       </div>
+      <hr />
+      <h4>Przykłady</h4>
+      {showExamples(verb.polsk.przyszły)}
     </Panel>
   );
+}
+
+function showExamples(verb) {
+  const examples = verb.przykłady;
+  if (examples) {
+    return examples.map(example => (
+      <div className="row example" key={example}>{example}</div>
+    ));
+  }
+
+  return <div className="no_examples">Na razie brak przykładów</div>;
 }
 
 const mapStateToProps = state => {

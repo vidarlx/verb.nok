@@ -110,3 +110,13 @@ img.logo {
 .footer img {
   width:30px;
 }
+
+.no_examples {
+  font-style: italic;
+  font-size: 10px;
+}
+
+.example {
+  font-size: 11px;
+  padding-left: 15px;
+}
